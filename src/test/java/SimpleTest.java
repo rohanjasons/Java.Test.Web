@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-class JUnit5ExampleTest {
+class SimpleTest {
 
     @Test
     void justAnExample() {
