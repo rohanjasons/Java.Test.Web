@@ -7,6 +7,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static Extensions.ExtendedMethods.*;
 
+/**
+ *
+ */
 public class BaseWebPage extends BasePage {
 
     private static WebDriver _driver;

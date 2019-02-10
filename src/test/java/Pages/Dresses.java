@@ -12,7 +12,6 @@ public class Dresses extends BaseWebPage {
         _driver = webDriver;
     }
 
-
     private void WhichViewIsSelected() {
 
     }

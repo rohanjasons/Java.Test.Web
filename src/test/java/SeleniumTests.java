@@ -11,7 +11,7 @@ public class SeleniumTests extends WebTestBase {
 
     @ParameterizedTest
     @EnumSource(value = WebDriver.class, names = { "Chrome", "Firefox"})
-    private void NavigateTotShirts(WebDriver webDriver) throws Exception {
+    public void NavigateTotShirts(WebDriver webDriver) throws Exception {
         CommonTestSetup(Url, true, webDriver);
 
         PageExtensions.Home(WebBrowserDriver)
@@ -20,7 +20,7 @@ public class SeleniumTests extends WebTestBase {
     }
 
     @Test
-    private void CheckIfTheGridOrListIsDisplayed() throws Exception {
+    public void CheckIfTheGridOrListIsDisplayed() throws Exception {
         CommonTestSetup(Url, true, WebDriver.Chrome);
 
         PageExtensions.Home(WebBrowserDriver)
