@@ -2,7 +2,11 @@ package Constants;
 
 /**
  * @Summary
- * Timeout values that are used during testing.
+ * Timeout values in milliseconds that are used during testing.
+ * @defaultTimeout = 60000
+ * @extendedTimeout = 240000
+ * @controlTimeout = 10000
+ * @oneSecond = 1000
  */
 public class Timeouts {
     public static int DefaultTimeout = 60000;

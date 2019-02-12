@@ -1,10 +1,13 @@
 package Constants;
 
-/*
-/ <summary>
-/ Timeout values in seconds that are used during testing.
-/ </summary>
-*/
+/**
+ * @Summary
+ * Timeout values in seconds that are used during testing.
+ * @defaultTimeout = 60
+ * @extendedTimeout = 240
+ * @controlTimeout = 10
+ * @oneSecond = 1
+ */
 public final class TimeoutsInSeconds {
     public static int ControlTimeout = 10;
     public static int DefaultTimeout = 60;

@@ -1,23 +1,25 @@
 package Enums;
 
-/*
-/ <summary>
-/ List of supported WebDrivers that can be used
-/ </summary>
-*/
+/**
+ * @Summary
+ * List of supported WebDrivers that can be used
+ */
 public enum WebDriver {
-        /// <summary>
-        /// Use Firefox Browser
-        /// </summary>
+        /**
+         * @Summary
+         * Use Firefox Browser
+         */
         Firefox,
 
-        /// <summary>
-        /// Use Internet Explorer Browser
-        /// </summary>
+        /**
+         * @Summary
+         * Use Internet Explorer Browser
+         */
         InternetExplorer,
 
-        /// <summary>
-        /// Use Chrome Browser
-        /// </summary>
+        /**
+         * @Summary
+         * Use Chrome Browser
+         */
         Chrome,
 }

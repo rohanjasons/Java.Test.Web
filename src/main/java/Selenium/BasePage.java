@@ -10,18 +10,28 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * Base Page that all test pages will inherit to gain access to the Web Driver
+ */
 public abstract class BasePage {
 
     private static int timeoutsInSeconds = TimeoutsInSeconds.ControlTimeout;
-    private static WebDriver Driver;
 
+    private static WebDriver Driver;
     public WebDriver getDriver() {
         return this.Driver;
     }
-    public void setDriver(WebDriver driver) {
-        this.Driver = driver;
+
+    public void setDriver(WebDriver webDriver) {
+        this.Driver = webDriver;
     }
 
+    /**
+     * @Summary
+     * @see BasePage Initializes a new instance of the "BasePage" class.
+     * @param webDriver
+     * @throws Exception
+     */
     protected BasePage(WebDriver webDriver) throws Exception {
        this.Driver = webDriver;
         PageFactory.initElements(webDriver, this);
@@ -46,11 +56,6 @@ public abstract class BasePage {
         PageFactory.initElements(webDriver, this);
         }
     }
-
-    /* private static boolean WaitForPageToFinishLoadin(WebDriver webDriver) {
-        Wait<WebDriver> wait = new WebDriverWait(Driver, timeoutsInSeconds);
-        return wait.until(driver -> ((JavascriptExecutor) webDriver).executeScript("return document.readystate").equals("complete"));
-    } */
 
     private static boolean WaitToFinishLoading(WebDriver webDriver) {
         return new WebDriverWait(Driver, timeoutsInSeconds).until(driver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
@@ -82,9 +87,7 @@ public abstract class BasePage {
             } catch (InterruptedException exception) {
                 Thread.currentThread().interrupt();
             }
-        }
-
-        throw new Exception("Could not find element with ID - " + elementId + " on page");
+        } throw new Exception("Could not find element with ID - " + elementId + " on page");
     }
 
     /// <summary>
@@ -106,8 +109,6 @@ public abstract class BasePage {
             } catch (InterruptedException exception) {
                 Thread.currentThread().interrupt();
             }
-        }
-
-        throw new Exception("Could not find element with ID - " + elementId + " on page");
+        } throw new Exception("Could not find element with ID - " + elementId + " on page");
     }
 }
