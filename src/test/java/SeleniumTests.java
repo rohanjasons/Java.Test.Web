@@ -10,7 +10,7 @@ public class SeleniumTests extends WebTestBase {
     private String Url = "http://www.automationpractice.com";
 
     @ParameterizedTest
-    @EnumSource(value = WebDriver.class, names = { "Chrome", "Firefox"})
+    @EnumSource(value = WebDriver.class)
     public void NavigateTotShirts(WebDriver webDriver) throws Exception {
         CommonTestSetup(Url, true, webDriver);
 
@@ -21,9 +21,10 @@ public class SeleniumTests extends WebTestBase {
 
     @Test
     public void CheckIfTheGridOrListIsDisplayed() throws Exception {
-        CommonTestSetup(Url, true, WebDriver.Chrome);
+        CommonTestSetup(Url, true, WebDriver.InternetExplorer);
 
         PageExtensions.Home(WebBrowserDriver)
                 .NavigateToDresses();
+        WebBrowserDriver.quit();
     }
 }

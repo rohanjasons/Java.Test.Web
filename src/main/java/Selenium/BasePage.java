@@ -17,6 +17,9 @@ public abstract class BasePage {
 
     private static int timeoutsInSeconds = TimeoutsInSeconds.ControlTimeout;
 
+    /**
+     * Gets or sets IWebDriver Instance
+     */
     private static WebDriver Driver;
     public WebDriver getDriver() {
         return this.Driver;
@@ -33,45 +36,73 @@ public abstract class BasePage {
      * @throws Exception
      */
     protected BasePage(WebDriver webDriver) throws Exception {
-       this.Driver = webDriver;
+        this.Driver = webDriver;
         PageFactory.initElements(webDriver, this);
     }
 
+    /**
+     * @Summary
+     * @see BasePage Initializes a new instance of the "BasePage" class.
+     * @param webDriver WebDriver that is in use
+     * @param element The element to initially check to ensure on correct page.
+     * @throws Exception
+     */
     protected BasePage(WebDriver webDriver, String element) throws Exception {
         if (!WaitToFinishLoading(webDriver)) {
             throw new Exception("Timed-Out");
         }
         if (AssertElementIsDisplayed(element)) {
-        this.Driver = webDriver;
-        PageFactory.initElements(webDriver, this);
+            this.Driver = webDriver;
+            PageFactory.initElements(webDriver, this);
         }
     }
 
+    /**
+     * @Summary
+     * @see BasePage Initializes a new instance of the "BasePage" class.
+     * @param webDriver WebDriver that is in use
+     * @param element The element to initially check to ensure on correct page.
+     * @throws Exception
+     */
     protected BasePage(WebDriver webDriver, By element) throws Exception {
         if (!WaitToFinishLoading(webDriver)) {
             throw new Exception("Timed-Out");
         }
         if (AssertElementIsDisplayed(element)) {
-        this.Driver = webDriver;
-        PageFactory.initElements(webDriver, this);
+            this.Driver = webDriver;
+            PageFactory.initElements(webDriver, this);
         }
     }
 
+    /**
+     * @Summary
+     * Wrapped the wait for java script method for use when loading web pages
+     * @param webDriver The web browser driver
+     * @return The browser once the java script load has completed
+     */
     private static boolean WaitToFinishLoading(WebDriver webDriver) {
         return new WebDriverWait(Driver, timeoutsInSeconds).until(driver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
     }
 
-    public void WaitForPageToFinishLoading(WebDriver driver) {
-        ExpectedCondition<Boolean> pageLoadCondition = driver1 -> ((JavascriptExecutor) driver1).executeScript("return document.readyState").equals("complete");
-        WebDriverWait wait = new WebDriverWait(driver, timeoutsInSeconds);
+    /**
+     * @Summary
+     * Wrapped the wait for java script method for use when loading web pages
+     * @param webDriver The web browser driver
+     * @param webDriver
+     */
+    public void WaitForPageToFinishLoading(WebDriver webDriver) {
+        ExpectedCondition<Boolean> pageLoadCondition = driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+        WebDriverWait wait = new WebDriverWait(webDriver, timeoutsInSeconds);
         wait.until(pageLoadCondition);
     }
 
-    /// <summary>
-    /// Checks to see if the correct page has been loaded
-    /// </summary>
-    /// <param name="elementId">the element that is checked to ensure that the correct page is loaded</param>
-    /// <returns>Returns a true or false</returns>
+    /**
+     * @Summary
+     * Checks to see if the correct page has been loaded
+     * @param elementId The element that is checked to ensure that the correct page is loaded
+     * @return Returns a true or false
+     * @throws Exception Throws an exception
+     */
     public static boolean AssertElementIsDisplayed(String elementId) throws Exception {
         int timeOut = timeoutsInSeconds;
         for (int time = 0; time < timeOut; time++)
@@ -83,18 +114,20 @@ public abstract class BasePage {
             catch (NoSuchElementException exception) { }
 
             try {
-            Thread.sleep(Timeouts.OneSecond);
+                Thread.sleep(Timeouts.OneSecond);
             } catch (InterruptedException exception) {
                 Thread.currentThread().interrupt();
             }
         } throw new Exception("Could not find element with ID - " + elementId + " on page");
     }
 
-    /// <summary>
-    /// Checks to see if the correct page has been loaded
-    /// </summary>
-    /// <param name="elementId">the element that is checked to ensure that the correct page is loaded</param>
-    /// <returns>Returns a true or false</returns>
+    /**
+     * @Summary
+     * Checks to see if the correct page has been loaded
+     * @param elementId The element that is checked to ensure that the correct page is loaded
+     * @return Returns a true or false
+     * @throws Exception throws an exception
+     */
     private boolean AssertElementIsDisplayed(By elementId) throws Exception {
         int timeOut = timeoutsInSeconds;
         for (int time = 0; time < timeOut; time++) {

@@ -6,22 +6,40 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 
 public class WebTestBase {
 
     public WebDriver WebBrowserDriver;
 
+    /**
+     * @Summary
+     * Start up the WebDriver and navigate to the URL specified.
+     * @param url The url that will be navigated to
+     * @param deleteAllCookies Boolean to determine whether you want to delete cookies prior to opening browser
+     * @param webDriver
+     */
     public void CommonTestSetup(String url, boolean deleteAllCookies, Enums.WebDriver webDriver) {
         switch (webDriver) {
             case Chrome:
-            InitialiseChromeLocal(url, deleteAllCookies);
-            break;
+                InitialiseChromeLocal(url, deleteAllCookies);
+                break;
+            case InternetExplorer:
+                InitialiseInternetExplorerLocal(url, deleteAllCookies);
+                break;
             case Firefox:
-            InitialiseFirefoxLocal(url, deleteAllCookies);
-            break;
+                InitialiseFirefoxLocal(url, deleteAllCookies);
+                break;
         }
     }
 
+    /**
+     * @Summary
+     * Initialise Firefox webdriver
+     * @param url The url that will be navigated to
+     * @param deleteAllCookies Boolean to determine whether you want to delete cookies prior to opening browser
+     */
     private void InitialiseFirefoxLocal(String url, boolean deleteAllCookies) {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         firefoxOptions.addPreference("browser.download.folderList", 2);
@@ -29,6 +47,12 @@ public class WebTestBase {
         InitialiseWebDriver(url, deleteAllCookies);
     }
 
+    /**
+     * @Summary
+     * Initialise chrome on the local webdriver
+     * @param url The url that will be navigated to
+     * @param deleteAllCookies Boolean to determine whether you want to delete cookies prior to opening browser
+     */
     private void InitialiseChromeLocal(String url, boolean deleteAllCookies) {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("safebrowsing.enabled");
@@ -37,6 +61,28 @@ public class WebTestBase {
         InitialiseWebDriver(url, deleteAllCookies);
     }
 
+    /**
+     * @Summary
+     * Initialise Internet explorer on the local webDriver
+     * @param url The url that will be navigated to
+     * @param deleteAllCookies Boolean to determine whether you want to delete cookies prior to opening browser
+     */
+    private void InitialiseInternetExplorerLocal(String url, boolean deleteAllCookies)
+    {
+        InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
+        internetExplorerOptions.ignoreZoomSettings();
+        internetExplorerOptions.introduceFlakinessByIgnoringSecurityDomains();
+        internetExplorerOptions.withInitialBrowserUrl("about:blank");
+        WebBrowserDriver = new InternetExplorerDriver(internetExplorerOptions);
+        InitialiseWebDriver(url, deleteAllCookies);
+    }
+
+    /**
+     * @Summary
+     * Navigate to inputted Url and maximise browser
+     * @param url The url that will be navigated to
+     * @param deleteAllCookies Boolean to determine whether you want to delete cookies prior to opening browser
+     */
     private void InitialiseWebDriver(String url, boolean deleteAllCookies) {
         int maxAttempts = 3;
         for (int attempt = 1; attempt <= maxAttempts; attempt++)
@@ -44,8 +90,6 @@ public class WebTestBase {
             String message = null;
             try
             {
-                //SetTimeouts.PageLoad(WebBrowserDriver);
-
                 if (deleteAllCookies)
                 {
                     WebBrowserDriver.manage().deleteAllCookies();
